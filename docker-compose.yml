@@ -1,0 +1,49 @@
+services:
+  api:
+    build: ./backend
+    container_name: aegis-api
+    ports:
+      - "8000:8000"  
+    env_file: 
+      - .env 
+    depends_on:
+      - postgres 
+      - redis 
+
+  postgres:
+    image: postgres:15 
+    environment: 
+      POSTGRES_USER: aegis
+      POSTGRES_PASSWORD: aegis
+      POSTGRES_DB: aegis_db
+    ports: 
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7 
+    ports: 
+      - "6379:6379" 
+
+  prometheus: 
+    image: prom/prometheus:v2.54.1
+    ports: 
+      - "9090:9090"
+    volumes: 
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on: 
+      - api
+
+  grafana: 
+    image: grafana/grafana:11.1.4
+    ports: 
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on: 
+      - prometheus
+
+volumes: 
+  pgdata: 

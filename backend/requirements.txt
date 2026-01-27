@@ -1,0 +1,7 @@
+fastapi 
+uvicorn 
+asyncpg 
+sqlalchemy
+redis
+pydantic-settings
+prometheus-fastapi-instrumentator
