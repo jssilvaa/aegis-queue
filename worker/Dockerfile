@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY worker ./worker
 
-CMD ["celery", "-A", "worker.tasks", "worker", "--loglevel=info"]
+CMD ["celery", "-A", "worker.celery_app", "worker", "--loglevel=info"]

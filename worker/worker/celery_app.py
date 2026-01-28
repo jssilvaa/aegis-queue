@@ -1,5 +1,5 @@
 from celery import Celery
-import os 
+import os
 
 celery = Celery(
     "aegis",

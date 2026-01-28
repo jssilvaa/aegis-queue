@@ -5,3 +5,5 @@ sqlalchemy
 redis
 pydantic-settings
 prometheus-fastapi-instrumentator
+celery
+psycopg2-binary
